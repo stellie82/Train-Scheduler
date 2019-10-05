@@ -12,13 +12,75 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script type="text/javascript" src="assets/javascript/app.js"></script>
 
+    <!-- Firebase References -->
+    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body>
 
     <div class=container>
-        
+        <div class="jumbotron jumbotron-fluid text-light bg-info">
+            <div class="container">
+                <h1 class="display-4">Anytime is Train Time</h1>
+                <p class="lead">Choo Choo, Chee Chee</p>
+            </div>
+        </div>
+
+        <div class="card border-info mb-3">
+            <div class="card-header">Current Train Schedule</div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Train Name</th>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Frequency (min)</th>
+                            <th scope="col">Next Arrival</th>
+                            <th scope="col">Minutes Away</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Seattle</td>
+                            <td>15</td>
+                            <td>3:15 pm</td>
+                            <td>6</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card border-info mb-3">
+            <div class="card-header">Add Train</div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="train">Train Name</label>
+                        <input type="train" class="form-control" id="train" aria-describedby="emailHelp"
+                            placeholder="Train Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="destination">Destination</label>
+                        <input type="destination" class="form-control" id="destination" placeholder="Destination Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="time">First Train Time (HH:mm - military time)</label>
+                        <input type="time" class="form-control" id="time" placeholder="First Train Time">
+                    </div>
+                    <div class="form-group">
+                        <label for="frequency">Frequency (min)</label>
+                        <input type="frequency" class="form-control" id="frequency" placeholder="Frequency">
+                    </div>
+                    <button type="submit" class="btn btn-info">Submit</button>
+                </form>
+            </div>
+        </div>
+
 
 
     </div>
