@@ -21,6 +21,9 @@ $(document).ready(function () {
     var destination;
     var initialTime;
     var frequency;
+    var currentTime = moment();
+
+    console.log(moment(currentTime).format("HH:mm"));
 
     // Create a click button to capture information.
     $("#submit").on("click", function (event) {
@@ -51,17 +54,28 @@ $(document).ready(function () {
         trainName = childSnapshot.val().trainName;
         destination = childSnapshot.val().destination;
         initialTime = childSnapshot.val().initialTime;
+        // First train set to arrive before current time.
+        initialTime = moment(initialTime, "HH:mm").subtract(1, "years");
         frequency = childSnapshot.val().frequency;
+
+        // Calculate minutes until next train and time of next arrival.
+
+        // Calculate difference in current time and initial time.
+        var timeDiff = moment().diff(moment(initialTime, "minutes"));
+        var remainder = timeDiff % frequency;
+        var minutesAway = frequency - remainder;
+        var nextArrival = moment().add(minutesAway, "minutes");
+        nextArrival = moment(nextArrival).format("HH:mm");
 
         var newRow = "<tr>";
         var newTrain = "<td>" + trainName + "</td>";
         var newDestination = "<td>" + destination + "</td>";
         var newFrequency = "<td>" + frequency + "</td>";
-        var newArrival = "<td>" + "</td>";
-        var newMinutes = "<td>" + "</td>";
+        var nextArrival = "<td>" + nextArrival + "</td>";
+        var minutesAway = "<td>" + minutesAway + "</td>";
         var endTag = "</tr>";
 
-        $("#train-table").append(newRow + newTrain + newDestination + newFrequency + newArrival + newMinutes + endTag);
+        $("#train-table").append(newRow + newTrain + newDestination + newFrequency + nextArrival + minutesAway + endTag);
 
     }, function (errorObject) {
         console.log("Errors handled: " + errorObject.code);
