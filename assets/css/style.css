@@ -1,3 +1,9 @@
 h1, p {
     text-align: center;
 }
+
+.jumbotron {
+    height: 300px;
+    background-size: 100%;
+    background-image: url(../images/train.jpg);
+}
