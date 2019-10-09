@@ -22,8 +22,8 @@ $(document).ready(function () {
     var initialTime;
     var frequency;
     var currentTime = moment();
-
-    console.log(moment(currentTime).format("HH:mm"));
+    console.log(currentTime);
+    console.log("current: " + currentTime);
 
     // Create a click button to capture information.
     $("#submit").on("click", function (event) {
@@ -54,18 +54,25 @@ $(document).ready(function () {
         trainName = childSnapshot.val().trainName;
         destination = childSnapshot.val().destination;
         initialTime = childSnapshot.val().initialTime;
-        // First train set to arrive before current time.
-        initialTime = moment(initialTime, "HH:mm").subtract(1, "years");
+        initialTime = initialTime.split(":");
+        initialTime = moment().set({"hour": initialTime[0], "minute": initialTime[1]});
+        console.log(initialTime);
         frequency = childSnapshot.val().frequency;
+        frequency = parseInt(frequency);
 
         // Calculate minutes until next train and time of next arrival.
 
         // Calculate difference in current time and initial time.
         var timeDiff = moment().diff(moment(initialTime, "minutes"));
+        console.log("current: " + currentTime);
+        console.log("initial: " + initialTime);
+        console.log("timeDiff: " + timeDiff);
         var remainder = timeDiff % frequency;
+        console.log("remainder: " + remainder);
         var minutesAway = frequency - remainder;
+        console.log("minutesAway:" + minutesAway);
         var nextArrival = moment().add(minutesAway, "minutes");
-        nextArrival = moment(nextArrival).format("HH:mm");
+        nextArrival = moment().format("LT");
 
         var newRow = "<tr>";
         var newTrain = "<td>" + trainName + "</td>";
