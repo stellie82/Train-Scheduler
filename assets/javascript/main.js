@@ -56,21 +56,21 @@ $(document).ready(function () {
         initialTime = childSnapshot.val().initialTime;
         initialTime = initialTime.split(":");
         initialTime = moment().set({"hour": initialTime[0], "minute": initialTime[1]});
-        console.log(initialTime);
+        // console.log(initialTime);
         frequency = childSnapshot.val().frequency;
         frequency = parseInt(frequency);
 
         // Calculate minutes until next train and time of next arrival.
 
         // Calculate difference in current time and initial time.
-        var timeDiff = moment().diff(moment(initialTime, "minutes"));
-        console.log("current: " + currentTime);
-        console.log("initial: " + initialTime);
-        console.log("timeDiff: " + timeDiff);
+        var timeDiff = parseInt(moment().diff(moment(initialTime, "minutes")) / 60000);
+        // console.log("current: " + currentTime);
+        // console.log("initial: " + initialTime);
+        // console.log("timeDiff: " + timeDiff);
         var remainder = timeDiff % frequency;
-        console.log("remainder: " + remainder);
+        // console.log("remainder: " + remainder);
         var minutesAway = frequency - remainder;
-        console.log("minutesAway:" + minutesAway);
+        // console.log("minutesAway:" + minutesAway);
         var nextArrival = moment().add(minutesAway, "minutes");
         nextArrival = moment().format("LT");
 
@@ -78,8 +78,8 @@ $(document).ready(function () {
         var newTrain = "<td>" + trainName + "</td>";
         var newDestination = "<td>" + destination + "</td>";
         var newFrequency = "<td>" + frequency + "</td>";
-        var nextArrival = "<td>" + nextArrival + "</td>";
-        var minutesAway = "<td>" + minutesAway + "</td>";
+        nextArrival = "<td>" + nextArrival + "</td>";
+        minutesAway = "<td>" + minutesAway + "</td>";
         var endTag = "</tr>";
 
         $("#train-table").append(newRow + newTrain + newDestination + newFrequency + nextArrival + minutesAway + endTag);
