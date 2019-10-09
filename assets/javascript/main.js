@@ -72,7 +72,7 @@ $(document).ready(function () {
         var minutesAway = frequency - remainder;
         // console.log("minutesAway:" + minutesAway);
         var nextArrival = moment().add(minutesAway, "minutes");
-        nextArrival = moment().format("LT");
+        nextArrival = nextArrival.format("LT");
 
         var newRow = "<tr>";
         var newTrain = "<td>" + trainName + "</td>";
