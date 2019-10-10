@@ -44,6 +44,12 @@ $(document).ready(function () {
             dateAdded: firebase.database.ServerValue.TIMESTAMP
         });
 
+        // CLear form after submitting entry.
+        $("#train").val("");
+        $("#destination").val("");
+        $("#time").val("");
+        $("#frequency").val("");
+
     });
 
     // Firebase Watcher
@@ -55,8 +61,7 @@ $(document).ready(function () {
         destination = childSnapshot.val().destination;
         initialTime = childSnapshot.val().initialTime;
         initialTime = initialTime.split(":");
-        initialTime = moment().set({"hour": initialTime[0], "minute": initialTime[1]});
-        // console.log(initialTime);
+        initialTime = moment().set({ "hour": initialTime[0], "minute": initialTime[1] });
         frequency = childSnapshot.val().frequency;
         frequency = parseInt(frequency);
 
@@ -64,13 +69,8 @@ $(document).ready(function () {
 
         // Calculate difference in current time and initial time.
         var timeDiff = parseInt(moment().diff(moment(initialTime, "minutes")) / 60000);
-        // console.log("current: " + currentTime);
-        // console.log("initial: " + initialTime);
-        // console.log("timeDiff: " + timeDiff);
         var remainder = timeDiff % frequency;
-        // console.log("remainder: " + remainder);
         var minutesAway = frequency - remainder;
-        // console.log("minutesAway:" + minutesAway);
         var nextArrival = moment().add(minutesAway, "minutes");
         nextArrival = nextArrival.format("LT");
 
@@ -82,6 +82,7 @@ $(document).ready(function () {
         minutesAway = "<td>" + minutesAway + "</td>";
         var endTag = "</tr>";
 
+        // Append train information to the schedule.
         $("#train-table").append(newRow + newTrain + newDestination + newFrequency + nextArrival + minutesAway + endTag);
 
     }, function (errorObject) {
